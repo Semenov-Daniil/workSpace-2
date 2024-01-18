@@ -4,22 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./assets/css/main.css">
   <title>WorkSpace</title>
 </head>
 
 <body>
   <div id="app">
-
     <header>
       <div class="header_content container">
-        <div class="header_content__logo" @click="$router.push('/')">
+        <div class="header_content__logo">
           <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 1H16V5" stroke="#171717" stroke-width="1.5" />
             <path d="M15 13H1V9" stroke="#171717" stroke-width="1.5" />
             <path d="M5 14.5H10.5" stroke="#171717" stroke-width="2" />
           </svg>
-  
+
           <h1 class="header_content__logo__company-name">
             <span>Work</span> Space
           </h1>
@@ -34,7 +33,7 @@
           <span>Своей мечты</span>
         </h1>
         <div class="container__image">
-          <img src="img/site/slogan_img.png" alt="img" class="slogan__img" />
+          <img src="./assets/img/site/slogan_img.png" alt="img" class="slogan__img" />
         </div>
       </section>
       <div class="main_content container">
@@ -43,7 +42,7 @@
             <div class="wrap__filter__title" @click="openCloseFilter">
               <p class="filter__form__title__text">
                 Фильтр
-              </p>  
+              </p>
               <div class="wrap-filter-arrow">
                 <svg :class="{'filter__svg':true, 'reversed':filterShow}" width="8" height="6" viewBox="0 0 8 6"
                   xmlns="http://www.w3.org/2000/svg">
@@ -53,16 +52,15 @@
             </div>
             <input form="filter__form" type="reset" value="Очистить" class="filter__form__reset form-title__reset"
               @click="reset" />
-            <!-- <button class="filter__form__reset" @click="reset">Очистить</button> -->
           </div>
-  
+
           <transition name="form-fade">
             <form action="#" method="get" class="filter__form" id="filter__form" @submit.prevent v-show="showFilter()">
               <div class="filter__form__item">
                 <label for="city_list" class="filter__form__item__label">Город</label>
-                <my-select v-model="selectSort" :options="selectCity" />
+                <my-select v-model="selectSort" :options="selectCity"></my-select>
               </div>
-  
+
               <div class="filter__form__item">
                 <label for="" class="filter__form__item__label">Заработная плата</label>
                 <div class="filter__form_item__salary">
@@ -76,36 +74,25 @@
                     @focus="this.maxWageTitle = this.maxWageValue" />
                 </div>
               </div>
-  
+
               <div class="wrap__filter__item">
 
-                <my-checkbox-list 
-                  :title="formWork.title" 
-                  v-model="formWork.checkboxList" 
-                ></my-checkbox-list>
-  
-                <my-checkbox-list  
-                  :title="experience.title" 
-                  v-model="experience.checkboxList"
-                ></my-checkbox-list>
-  
-                <my-checkbox-list 
-                  :title="employment.title"
-                  v-model="employment.checkboxList" 
-                ></my-checkbox-list>
+                <my-checkbox-list :title="formWork.title" v-model="formWork.checkboxList"></my-checkbox-list>
+
+                <my-checkbox-list :title="experience.title" v-model="experience.checkboxList"></my-checkbox-list>
+
+                <my-checkbox-list :title="employment.title" v-model="employment.checkboxList"></my-checkbox-list>
               </div>
-  
+
               <div class="filter__form__operation">
-                <input type="submit" class="filter__form__submit btn" value="Применить" @click="submit" />
-                <input type="reset" class="filter__form__reset form__operation__reset" value="Очистить" @click="reset" />
+                <input type="submit" class="filter__form__submit btn" value="Применить" @click="getResponseFilter" />
+                <input type="reset" class="filter__form__reset form__operation__reset" value="Очистить"
+                  @click="reset" />
               </div>
             </form>
           </transition>
         </aside>
-        <work-list
-          :worklist="workList"
-          @popup="openPopup"
-        />
+        <work-list :worklist="workList" @popup="openPopup"></work-list>
       </div>
     </main>
     <footer>
@@ -117,22 +104,22 @@
               <path d="M15 13H1V9" stroke="#171717" stroke-width="1.5" />
               <path d="M5 14.5H10.5" stroke="#171717" stroke-width="2" />
             </svg>
-    
+
             <h1 class="footer_content__info-company__logo__text">
               <span>Work</span> Space
             </h1>
           </div>
-    
+
           <p class="footer_content__info-company__copyright">© Work Space, 2023</p>
         </div>
-    
+
         <p class="footer_content__dev-info">
           Designer: Anastasia Ilina<br />
           Developer: Semenov Daniil
         </p>
       </div>
     </footer>
-  
+
     <div class="wrapper__popup" v-if="companyShow" @click="closePopup">
       <div class="popup" @click.stop>
         <div class="popup__title">
@@ -159,7 +146,7 @@
           Отправляйте резюме на <a :href="'mailto:' + company.email">{{ company.email }}</a>
         </div>
         <div class="likemen">
-          <img src="img/site/likemen.png" alt="likemen">
+          <img src="./assets/img/site/likemen.png" alt="likemen">
         </div>
         <div class="close_icon" @click="closePopup">
           <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +159,8 @@
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="./js/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./assets/js/app.js"></script>
 </body>
 
 </html>
